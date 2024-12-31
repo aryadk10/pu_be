@@ -1,0 +1,27 @@
+protected $fillable = [
+        'code',
+        'description',
+    ];
+
+
+    public function getAllowedFields(): array
+    {
+        // Your implementation here
+        return [
+
+        ];
+    }
+
+    public function getAllowedSorts(): array
+    {
+        return [
+
+        ];
+    }
+
+    public function getAllowedFilters(): array
+    {
+        return [
+
+        ];
+    }

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    ports:
+      - "8000:80" # Laravel backend on localhost:8000
+    environment:
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: pgsql
+      DB_HOST: host.docker.internal
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - .:/var/www/html
+
+  vite:
+    image: node:18
+    container_name: vite_server
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: ["npm", "run", "dev", "--", "--host"] # Expose Vite to external network
+    ports:
+      - "80:5173" # Vite frontend on localhost:80
